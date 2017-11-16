@@ -4,13 +4,16 @@
 #include <SoftwareSerial.h>
 #include <MeAuriga.h>
 
+//Color's Led 
 MeRGBLed rgbled_0(0, 12);
+//Wifi Module
 MeWifi Wifi(PORT_10);
 
 
 //Encoder Motor
 MeEncoderOnBoard Encoder_1(SLOT1);
 MeEncoderOnBoard Encoder_2(SLOT2);
+
 int input=0;
 void isr_process_encoder1(void)
 {
@@ -101,8 +104,7 @@ Wifi.begin(9600);
 void loop(){
 
   _loop();
-    Serial.available();
-      input = Wifi.read();  // read serial 
+      input = Wifi.read();  // read Wifi
    switch (input){
    case '1':  //If C# sent a '1' do case one
      
@@ -130,7 +132,7 @@ void loop(){
       break;
 
        case '3':
-     //If C# sent a '2' do case two
+     //If C# sent a '3' do case Three
      {  
             
       move(3,100);        
@@ -141,7 +143,7 @@ void loop(){
    
       break;
       case '4':
-     //If C# sent a '2' do case two
+     //If C# sent a '4' do case Four
      {  
             
       move(4,100);        
@@ -152,7 +154,7 @@ void loop(){
    
       break;
       case '5':
-     //If C# sent a '2' do case two
+     //If C# sent a '5' do case Five
      {  
             
       move(0,0);        
