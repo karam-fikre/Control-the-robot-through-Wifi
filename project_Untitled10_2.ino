@@ -3,18 +3,15 @@
 #include <SPI.h>
 #include <SoftwareSerial.h>
 #include <MeAuriga.h>
-
 //Color's Led 
 MeRGBLed rgbled_0(0, 12);
 //Wifi Module
 MeWifi Wifi(PORT_10);
-
-
 //Encoder Motor
 MeEncoderOnBoard Encoder_1(SLOT1);
 MeEncoderOnBoard Encoder_2(SLOT2);
+int input=0;//variable for reading
 
-int input=0;
 void isr_process_encoder1(void)
 {
       if(digitalRead(Encoder_1.getPortB()) == 0){
@@ -90,84 +87,72 @@ void setup(){
     TCCR2A = _BV(WGM21) | _BV(WGM20);
     TCCR2B = _BV(CS21);
     
-     attachInterrupt(Encoder_1.getIntNum(), isr_process_encoder1, RISING);
+    attachInterrupt(Encoder_1.getIntNum(), isr_process_encoder1, RISING);
     attachInterrupt(Encoder_2.getIntNum(), isr_process_encoder2, RISING);
    
- Serial.begin(9600); 
- 
-Wifi.begin(9600);
-
-
-
+    Serial.begin(9600); //set the baud for serial ports
+    Wifi.begin(9600); // set the baud for wifi serial
 }
 
 void loop(){
 
   _loop();
-      input = Wifi.read();  // read Wifi
+   input = Wifi.read();  // read Wifi
    switch (input){
+               
    case '1':  //If C# sent a '1' do case one and move Forward
-     
-     {
-                     move(1,100);
-        rgbled_0.setpin(44);
-    rgbled_0.setColor(0,0,225,0);
+           {
+    move(1,100);//move the robot forward
+    rgbled_0.setpin(44);
+    rgbled_0.setColor(0,0,225,0);//turn on the leds
     rgbled_0.show();
-        Serial.println("ok");
-     }
-     
-    
-     
+    Serial.println("ok");
+           }
       break;
+               
    case '2':
      //If C# sent a '2' do case two and move Backward
-     {  
-            
-      move(2,100);        
-      rgbled_0.setpin(44);
+           {    
+    move(2,100);        
+    rgbled_0.setpin(44);
     rgbled_0.setColor(0,255,0,0);
     rgbled_0.show();
-     }
-   
+           }
       break;
 
-       case '3':
+   case '3':
      //If C# sent a '3' do case Three and move Left
-     {  
-            
-      move(3,100);        
-      rgbled_0.setpin(44);
+           {  
+    move(3,100);        
+    rgbled_0.setpin(44);
     rgbled_0.setColor(0,255,255,0);
     rgbled_0.show();
-     }
-   
+           }
       break;
-      case '4':
+               
+   case '4':
      //If C# sent a '4' do case Four and move Right
-     {  
-            
-      move(4,100);        
-      rgbled_0.setpin(44);
+           {       
+    move(4,100);        
+    rgbled_0.setpin(44);
     rgbled_0.setColor(0,0,255,255);
     rgbled_0.show();
-     }
-   
+           }
       break;
-      case '5':
+   case '5':
      //If C# sent a '5' do case Five and Stop
-     {  
-            
-      move(0,0);        
-      rgbled_0.setpin(44);
+           {     
+    move(0,0);        
+    rgbled_0.setpin(44);
     rgbled_0.setColor(0,0,0,0);
     rgbled_0.show();
-     }
-   
+           }
       break;
- }
-
+               
+ }//end switch
       
-}
+}//end loop
+
 
 void _delay(float seconds){
     long endTime = millis() + seconds * 1000;
@@ -176,7 +161,7 @@ void _delay(float seconds){
 
 void _loop(){
   
-          Encoder_1.loop();
+    Encoder_1.loop();
     Encoder_2.loop();
     
 }
