@@ -106,7 +106,7 @@ void loop(){
   _loop();
       input = Wifi.read();  // read Wifi
    switch (input){
-   case '1':  //If C# sent a '1' do case one
+   case '1':  //If C# sent a '1' do case one and move Forward
      
      {
                      move(1,100);
@@ -120,7 +120,7 @@ void loop(){
      
       break;
    case '2':
-     //If C# sent a '2' do case two
+     //If C# sent a '2' do case two and move Backward
      {  
             
       move(2,100);        
@@ -132,7 +132,7 @@ void loop(){
       break;
 
        case '3':
-     //If C# sent a '3' do case Three
+     //If C# sent a '3' do case Three and move Left
      {  
             
       move(3,100);        
@@ -143,7 +143,7 @@ void loop(){
    
       break;
       case '4':
-     //If C# sent a '4' do case Four
+     //If C# sent a '4' do case Four and move Right
      {  
             
       move(4,100);        
@@ -154,7 +154,7 @@ void loop(){
    
       break;
       case '5':
-     //If C# sent a '5' do case Five
+     //If C# sent a '5' do case Five and Stop
      {  
             
       move(0,0);        
